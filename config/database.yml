@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_PASS'] %>
+
+  pool: 5
+
+development:
+  <<: *default
+  database: reactjs-r_development
+
+test:
+  <<: *default
+  database: reactjs-r_test
+
+
+production:
+  <<: *default
+  database: reactjs-r_production
+  username: reactjs-r
+  password: <%= ENV['REACT-RAILS-BLOG_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
