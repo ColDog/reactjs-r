@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
+gem 'react-rails'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier'
@@ -9,9 +10,11 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'active_model_serializers'
-gem 'ffaker'
+gem 'responders'
+gem 'faker'
 gem 'sdoc', group: :doc
 gem 'bcrypt'
+
 
 
 group :development, :test do
