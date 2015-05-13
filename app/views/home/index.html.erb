@@ -1,1 +1,9 @@
-<%= react_component('Comment') %>
+<%= react_component('Blog') %>
+
+<% cache do %>
+	<%= react_component('CommentContainer') %>
+<% end %>
+
+<div id="content">
+
+</div>
