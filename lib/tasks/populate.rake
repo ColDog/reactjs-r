@@ -5,8 +5,18 @@ namespace :db do
 
     10.times do
       Comment.create(
-        author: Faker::Name.first_name + " " + Faker::Name.last_name,
-        content: Faker::Lorem.words(10).join(' ')
+        author:   Faker::Name.name,
+        content:  Faker::Lorem.words(10).join(' ')
+      )
+    end
+
+    Article.destroy_all
+
+    20.times do
+      Article.create(
+        author: Faker::Name.name,
+        title:  Faker::Name.name,
+        body:   Faker::Lorem.words(200).join(' ')
       )
     end
   end

@@ -1,9 +1,9 @@
-<%= react_component('Blog') %>
+<h1>Simple Blog</h1>
+
+<%= react_component('BlogFormContainer') %>
+
+<%= react_component('BlogContainer') %>
 
 <% cache do %>
 	<%= react_component('CommentContainer') %>
 <% end %>
-
-<div id="content">
-
-</div>

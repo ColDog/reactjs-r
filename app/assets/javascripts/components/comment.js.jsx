@@ -35,7 +35,7 @@ var CommentForm = React.createClass({
             <form className="commentForm" onSubmit={this.handleSubmit}>
                 <input type="text" placeholder="Your name" ref="author" />
                 <input type="text" placeholder="Say something..." ref="content" />
-                <input type="submit" value="Post" />
+                <input className="btn" type="submit" value="Post" />
             </form>
         );
     }
@@ -52,21 +52,22 @@ var Comment = React.createClass({
     }
 });
 
-var CommentBox = React.createClass({
-    loadCommentsFromServer: function() {
+var CommentBox;
+CommentBox = React.createClass({
+    loadCommentsFromServer: function () {
         $.ajax({
             url: this.props.url,
             datatype: 'json',
             cache: false,
-            success: function(data) {
+            success: function (data) {
                 this.setState({data: data});
             }.bind(this),
-            error: function(xhr, status, err) {
+            error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
     },
-    handleCommentSubmit: function(comment) {
+    handleCommentSubmit: function (comment) {
         var comments = this.state.data;
         var newComments = [comment].concat(comments);
         this.setState({data: newComments});
@@ -75,28 +76,27 @@ var CommentBox = React.createClass({
             url: this.props.url,
             dataType: 'json',
             type: 'POST',
-            data: { comment: comment },
-            success: function(data) {
+            data: {comment: comment},
+            success: function (data) {
                 this.setState({data: data});
             }.bind(this),
-            error: function(xhr, status, err) {
+            error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
     },
-    getInitialState: function() {
+    getInitialState: function () {
         return {data: []};
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         this.loadCommentsFromServer();
         setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     },
-    render: function() {
+    render: function () {
         return (
             <div className="commentBox">
-                <div className="header">
-                    <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-                </div>
+                <h5>Comments</h5>
+                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
                 <CommentList data={this.state.data} />
             </div>
         );
@@ -109,7 +109,7 @@ var CommentContainer = React.createClass({
             <CommentBox url="/comments.json" pollInterval={2000} />
         )
     }
-})
+});
 
 
 
