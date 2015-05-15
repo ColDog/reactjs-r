@@ -18,7 +18,9 @@ var Article = React.createClass({
         var shown = this.state.show? 'show' : 'hidden';
         return (
             <div id="article">
-                <h2 className="articleTitle" onClick={this.handleClick}>{this.props.title}</h2>
+                <h2 className="articleTitle" onClick={this.handleClick}>
+                {this.props.title}
+                </h2>
                 <button className="btn" onClick={this.deleteObj}>
                     Delete
                 </button>
@@ -53,7 +55,32 @@ var ArticleList = React.createClass({
     }
 });
 
+var ArticleForm = React.createClass({
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var title = React.findDOMNode(this.refs.title).value.trim();
+        var body = React.findDOMNode(this.refs.body).value.trim();
+        if (!body || !title) {
+            return;
+        }
+        this.props.onArticleSubmit({title: title, body: body});
+        React.findDOMNode(this.refs.title).value = '';
+        React.findDOMNode(this.refs.body).value = '';
+        return;
+    },
+    render: function() {
+        return (
+            <form className="articleForm" onSubmit={this.handleSubmit}>
+                <input className="title" type="text" placeholder="Title" ref="title" />
+                <textarea type="text" placeholder="Say something..." ref="body" />
+                <input className="btn" type="submit" value="Post" />
+            </form>
+        );
+    }
+});
+
 var ArticleBox = React.createClass({
+
     deleteObj: function(data_id) {
         var articles = this.state.data;
         var newArticles = articles.filter(function(elem) {
@@ -84,6 +111,26 @@ var ArticleBox = React.createClass({
         });
     },
 
+    handleArticleSubmit: function (article) {
+        var articles = this.state.data;
+        var newArticles = articles.concat([article]);
+        this.setState({data: newArticles});
+
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'POST',
+            data: {article: article},
+            success: function (data) {
+                this.setState({data: data});
+                this.loadArticlesFromServer();
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
 
     getInitialState: function() {
         return {data: []};
@@ -99,6 +146,9 @@ var ArticleBox = React.createClass({
                 <ArticleList
                     data={this.state.data}
                     onDelete={this.deleteObj}
+                />
+                <ArticleForm
+                    onArticleSubmit={this.handleArticleSubmit}
                 />
             </div>
         )
