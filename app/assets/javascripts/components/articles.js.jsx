@@ -17,20 +17,15 @@ var Article = React.createClass({
         var rawMarkup = marked(this.props.body.toString(), {sanitize: true});   // Uses markdown to render each article
         var shown = this.state.show? 'show' : 'hidden';
         return (
-            <div className="article">
-                <h2
-                    className="articleTitle"
-                    onClick={this.handleClick}                                  // Handles the click to display the article
-                >
-                {this.props.title}
-                </h2>
+            <div id="article">
+                <h2 className="articleTitle" onClick={this.handleClick}>{this.props.title}</h2>
+                <button className="btn" onClick={this.deleteObj}>
+                    Delete
+                </button>
+
                 <div id="articleContent" className={shown}
                     dangerouslySetInnerHTML={{__html: rawMarkup}}
                 />
-                <button className="btn"
-                    onClick={this.deleteObj}>
-                    Delete
-                </button>
             </div>
         )
     }
