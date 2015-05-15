@@ -1,17 +1,48 @@
 /** @jsx React.DOM */
 
+
+var Comment = React.createClass({
+
+    deleteObj: function() {                                                     // Handle the delete function for the article
+        this.props.onDelete(this.props.id);
+    },
+
+    render: function() {
+        return (
+            <div className="comment">
+                <h5 className="commentAuthor">
+                {this.props.author}
+                </h5>
+                <div className="commentContent">
+                {this.props.content}
+                </div>
+                <button className="btn"
+                    onClick={this.deleteObj}>
+                    Delete
+                </button>
+            </div>
+        );
+    }
+});
+
 var CommentList = React.createClass({
     render: function() {
-        var commentNodes = this.props.data.map(function (comment) {
+        var onDelete = this.props.onDelete;
+
+        var comments = this.props.data.map(function (comment) {
             return (
-                <Comment author={comment.author}>
-                    {comment.content}
-                </Comment>
+                <Comment
+                    key={comment.author}
+                    id={comment.id}
+                    author={comment.author}
+                    content={comment.content}
+                    onDelete={onDelete}
+                />
             );
         });
         return (
             <div className="commentList">
-            {commentNodes}
+            {comments}
             </div>
         )
     }
@@ -41,24 +72,35 @@ var CommentForm = React.createClass({
     }
 });
 
-var Comment = React.createClass({
-    render: function() {
-        return (
-            <div className="comment">
-                <h5 className="commentAuthor">{this.props.author}</h5>
-                <p>{this.props.children}</p>
-            </div>
-        );
-    }
-});
-
 var CommentBox;
 CommentBox = React.createClass({
+    deleteObj: function(data_id) {
+        var comments = this.state.data;
+        var newComments = comments.filter(function(elem) {
+            return elem.id = data_id;
+        });
+
+        this.setState({data: newComments});
+
+        $.ajax({
+            datatype: 'json',
+            type: 'DELETE',
+            cache: false,
+            url: 'comments/' + data_id,
+            success: function() {
+                this.loadCommentsFromServer();
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
     loadCommentsFromServer: function () {
         $.ajax({
             url: this.props.url,
             datatype: 'json',
-            cache: false,
+            cache: true,
             success: function (data) {
                 this.setState({data: data});
             }.bind(this),
@@ -67,6 +109,7 @@ CommentBox = React.createClass({
             }.bind(this)
         });
     },
+
     handleCommentSubmit: function (comment) {
         var comments = this.state.data;
         var newComments = [comment].concat(comments);
@@ -79,25 +122,31 @@ CommentBox = React.createClass({
             data: {comment: comment},
             success: function (data) {
                 this.setState({data: data});
+                this.loadCommentsFromServer();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
     },
+
     getInitialState: function () {
         return {data: []};
     },
     componentDidMount: function () {
         this.loadCommentsFromServer();
-        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     },
     render: function () {
         return (
             <div className="commentBox">
                 <h5>Comments</h5>
-                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-                <CommentList data={this.state.data} />
+                <CommentForm
+                    onCommentSubmit={this.handleCommentSubmit}
+                />
+                <CommentList
+                    data={this.state.data}
+                    onDelete={this.deleteObj}
+                />
             </div>
         );
     }
@@ -106,7 +155,7 @@ CommentBox = React.createClass({
 var CommentContainer = React.createClass({
     render: function() {
         return(
-            <CommentBox url="/comments.json" pollInterval={2000} />
+            <CommentBox url="/comments.json" />
         )
     }
 });

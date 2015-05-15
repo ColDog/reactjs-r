@@ -12,7 +12,8 @@ h3 { font-family: $font; color: $color;  }
 h4 { font-family: $font; color: $color; }
 h6 { font-family: $font; color: $color; }
 h5 { font-family: $font; padding: 0; margin: 0; color: $color; }
-p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em; font-size: 1.2em; }
+p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em; font-size: 1.1em; }
+span {font-family: $font; padding: 0; margin: 0; color: $color;}
 
 .comment {
   margin-top: 1em;
@@ -21,7 +22,7 @@ p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em;
 .btn { border-radius: 0; background-color: $back; border: thin solid #BBBBBB; outline: none; height: 20px; }
 .btn:hover {background-color: lightgrey; transition: all 1s;}
 
-.commentBox, .blogBox {
+.commentBox, .articleBox {
   max-width: 700px;
   margin: auto;
   padding-top: 90px;
@@ -32,8 +33,17 @@ p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em;
   margin-top: 20px;
 }
 
-.formBox {
+.articleForm {
   .title {width: 300px; margin: auto; padding: 5px; display: block;}
-  textarea {width: 300px; height: 200px; margin: auto; padding: 6px; display: block; border: thin solid #BBBBBB;}
+  textarea {width: 300px; height: 100px; margin: auto; padding: 6px; display: block; border: thin solid #BBBBBB;}
   .btn {margin: auto; display: block}
 }
+
+.hidden { max-height: 0; overflow: hidden; }
+.show { overflow: auto; }
+
+.article {
+  div {}
+  h2 { cursor: pointer; }
+}
+#articleContent { transition: height 1s; }

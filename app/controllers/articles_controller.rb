@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Article.all.reverse_order.limit(5)
+    respond_with Article.all
   end
 
   def create

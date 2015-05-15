@@ -9,6 +9,7 @@ default: &default
 development:
   <<: *default
   database: reactjs-r_development
+  host: localhost
 
 test:
   <<: *default
