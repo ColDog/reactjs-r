@@ -9,10 +9,6 @@ var Article = React.createClass({
         this.setState({show: !this.state.show});
     },
 
-    deleteObj: function() {                                                     // Handle the delete function for the article
-        this.props.onDelete(this.props.id);
-    },
-
     render: function() {                                                        // Render the individual article
         var rawMarkup = marked(this.props.body.toString(), {sanitize: true});   // Uses markdown to render each article
         var shown = this.state.show? 'show' : 'hidden';
@@ -21,9 +17,6 @@ var Article = React.createClass({
                 <h2 className="articleTitle" onClick={this.handleClick}>
                 {this.props.title}
                 </h2>
-                <button className="btn" onClick={this.deleteObj}>
-                    Delete
-                </button>
 
                 <div id="articleContent" className={shown}
                     dangerouslySetInnerHTML={{__html: rawMarkup}}
@@ -35,7 +28,6 @@ var Article = React.createClass({
 
 var ArticleList = React.createClass({
     render: function() {
-        var onDelete = this.props.onDelete;
 
         var articles = this.props.data.map(function(article) {
             return <Article
@@ -43,7 +35,6 @@ var ArticleList = React.createClass({
                 id={article.id}
                 title={article.title}
                 body={article.body}
-                onDelete={onDelete}
             />;
         });
 
@@ -55,50 +46,8 @@ var ArticleList = React.createClass({
     }
 });
 
-var ArticleForm = React.createClass({
-    handleSubmit: function(e) {
-        e.preventDefault();
-        var title = React.findDOMNode(this.refs.title).value.trim();
-        var body = React.findDOMNode(this.refs.body).value.trim();
-        if (!body || !title) {
-            return;
-        }
-        this.props.onArticleSubmit({title: title, body: body});
-        React.findDOMNode(this.refs.title).value = '';
-        React.findDOMNode(this.refs.body).value = '';
-        return;
-    },
-    render: function() {
-        return (
-            <form className="articleForm" onSubmit={this.handleSubmit}>
-                <input className="title" type="text" placeholder="Title" ref="title" />
-                <textarea type="text" placeholder="Say something..." ref="body" />
-                <input className="btn" type="submit" value="Post" />
-            </form>
-        );
-    }
-});
 
 var ArticleBox = React.createClass({
-
-    deleteObj: function(data_id) {
-        var articles = this.state.data;
-        var newArticles = articles.filter(function(elem) {
-            return elem.id = data_id;
-        });
-
-        this.setState({data: newArticles});
-
-        $.ajax({
-            datatype: 'json',
-            type: 'DELETE',
-            cache: false,
-            url: 'articles/' + data_id,
-            success: function() {
-                this.loadArticlesFromServer();
-            }.bind(this)
-        });
-    },
 
     loadArticlesFromServer: function() {
         $.ajax({
@@ -111,27 +60,6 @@ var ArticleBox = React.createClass({
         });
     },
 
-    handleArticleSubmit: function (article) {
-        var articles = this.state.data;
-        var newArticles = articles.concat([article]);
-        this.setState({data: newArticles});
-
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: {article: article},
-            success: function (data) {
-                this.setState({data: data});
-                this.loadArticlesFromServer();
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    },
-
-
     getInitialState: function() {
         return {data: []};
     },
@@ -143,13 +71,7 @@ var ArticleBox = React.createClass({
     render: function() {
         return (
             <div className="articleBox">
-                <ArticleList
-                    data={this.state.data}
-                    onDelete={this.deleteObj}
-                />
-                <ArticleForm
-                    onArticleSubmit={this.handleArticleSubmit}
-                />
+                <ArticleList data={this.state.data} />
             </div>
         )
     }

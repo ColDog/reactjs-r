@@ -14,6 +14,10 @@ h6 { font-family: $font; color: $color; }
 h5 { font-family: $font; padding: 0; margin: 0; color: $color; }
 p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em; font-size: 1.1em; }
 span {font-family: $font; padding: 0; margin: 0; color: $color;}
+td {font-family: $font; padding: 0; margin: 0; color: $color;}
+li {font-family: $font; padding: 0; margin: 0; color: $color;}
+a {font-family: $font; padding: 0; margin: 0; transition: all 1s; text-decoration: none; color: indigo; }
+a:hover { background-color: indigo; color: #fff; }
 
 .comment {
   margin-top: 1em;
@@ -38,5 +42,11 @@ span {font-family: $font; padding: 0; margin: 0; color: $color;}
 .show { overflow: auto; }
 
 #article {
-  h2 {cursor: pointer}
+  display: inline-block;
+  h2 {cursor: pointer; padding: 0; margin: 0; display: inline-block;}
 }
+
+.admin-body { max-height: 2em; overflow: scroll; }
+#adminNav { li {display: inline-block;} a {padding: 1em;}  }
+
+td { padding-bottom: 0.8em; padding-top: 0.8em; padding-left: 0.3em; padding-right: 0.3em; border-top: thin solid #ccc; max-width: 500px; }
