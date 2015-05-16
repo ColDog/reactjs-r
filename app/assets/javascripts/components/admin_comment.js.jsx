@@ -3,16 +3,29 @@
 
 var AdminComment = React.createClass({
 
-    deleteObj: function() {                                                     // Handle the delete function for the article
+    deleteObj: function() {
         this.props.onDelete(this.props.id);
     },
 
     render: function() {
         return (
             <tr className="comment">
-                <td><h5 className="commentAuthor">{this.props.author}</h5></td>
-                <td><div className="commentContent">{this.props.content}</div></td>
-                <td><button className="btn" onClick={this.deleteObj}> Delete </button></td>
+                <td>
+                    <h5 className="commentAuthor">
+                        {this.props.author}
+                    </h5>
+                </td>
+                <td>
+                    <div className="commentContent">
+                        {this.props.content}
+                    </div>
+                </td>
+                <td>
+                    <button className="btn"
+                    onClick={this.deleteObj}>
+                        Delete
+                    </button>
+                </td>
             </tr>
         );
     }

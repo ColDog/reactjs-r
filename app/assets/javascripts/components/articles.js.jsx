@@ -2,15 +2,15 @@
 
 var Article = React.createClass({
     getInitialState: function() {
-        return { show: false };                                                 // State for show or hidden class applied to article
+        return { show: false };
     },
 
-    handleClick: function(event) {                                              // On clicking title set class of article to show from hidden
+    handleClick: function(event) {
         this.setState({show: !this.state.show});
     },
 
-    render: function() {                                                        // Render the individual article
-        var rawMarkup = marked(this.props.body.toString(), {sanitize: true});   // Uses markdown to render each article
+    render: function() {
+        var rawMarkup = marked(this.props.body.toString(), {sanitize: true});
         var shown = this.state.show? 'show' : 'hidden';
         return (
             <div id="article">

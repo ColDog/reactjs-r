@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 
 var AdminArticle = React.createClass({
-    deleteObj: function() {                                                     // Handle the delete function for the article
+    deleteObj: function() {
         this.props.onDelete(this.props.id);
     },
 
-    render: function() {                                                        // Render the individual article
+    render: function() {
         return (
             <tr id="article">
                 <td><h5>{this.props.title}</h5></td>
