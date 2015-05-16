@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-
-  # Comments
   root      'home#index'
-  resources :articles
-  resources :comments
+
+  # Json Resources
+  resources :articles, only: [:create, :index, :delete]
+  resources :comments, only: [:create, :index, :delete]
 
   # Admin Section
-  resources :sessions
-  get 'admin' => 'admin#admin'
-  get         'login'     => 'sessions#new'
-  post        'login'     => 'sessions#create'
-  delete      'logout'    => 'sessions#destroy'
+  get       'admin'   => 'admin#admin'
+  get       'login'   => 'sessions#new'
+  post      'login'   => 'sessions#create'
+  delete    'logout'  => 'sessions#destroy'
 
 end
