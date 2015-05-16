@@ -42,8 +42,7 @@ a:hover { background-color: indigo; color: #fff; }
 .show { overflow: auto; }
 
 #article {
-  display: inline-block;
-  h2 {cursor: pointer; padding: 0; margin: 0; display: inline-block;}
+  h2 {cursor: pointer; padding: 0; margin: 0; }
 }
 
 .admin-body { max-height: 2em; overflow: scroll; }

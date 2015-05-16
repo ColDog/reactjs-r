@@ -5,13 +5,6 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  # creates the user session in cookies
-  def remember(user)
-    user.remember
-    cookies.permanent.signed[:user_id] = user.id
-    cookies.permanent[:remember_token] = user.remember_token
-  end
-
   # returns current user
   def current_user
     @current_user ||= Admin.find_by(id: session[:user_id])
@@ -20,13 +13,6 @@ module SessionsHelper
   # Returns true if the user is logged in, false otherwise.
   def logged_in?
     !current_user.nil?
-  end
-
-  # forget a persistent session
-  def forget(user)
-    user.forget
-    cookies.delete(:user_id)
-    cookies.delete(:remember_token)
   end
 
   # logs out the current user

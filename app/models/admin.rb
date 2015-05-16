@@ -1,7 +1,7 @@
 class Admin < ActiveRecord::Base
-  include Authenticate
   has_secure_password
 
+  # sends a token through the bcrypt system to see if a user is authenticated
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
