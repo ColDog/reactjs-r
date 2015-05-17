@@ -6,7 +6,7 @@ $back: white;
 $main: #F68632;
 $second: #D95C5C;
 
-body { background-color: white; }
+body { background-color: white; padding-bottom: 200px; }
 
 h1 { font-family: $font; text-align: center; color: $color; margin-top: 3em; margin-bottom: 0;  }
 h2 { font-family: $font; color: $second; width: auto; font-weight: 300; }
@@ -18,14 +18,15 @@ p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em;
 span {font-family: $font; padding: 0; margin: 0; color: $color; font-weight: 300; }
 td {font-family: $font; padding: 0; margin: 0; color: $color;}
 li {font-family: $font; padding: 0; margin: 0; color: $color;}
-a {font-family: $font; padding: 0; margin: 0; transition: all 1s; text-decoration: none; color: $main; }
+.main {
 a:hover { background-color: $main; color: #fff; }
-
+}
+a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; text-decoration: none; color: $main; }
 .comment {
   margin-top: 1em;
 }
 
-.btn { border-radius: 0; background-color: $back; border: thin solid #BBBBBB; outline: none; height: 20px; }
+.btn { border-radius: 0; background-color: $back; border: thin solid #BBBBBB; outline: none; }
 .btn:hover {background-color: lightgrey; transition: all 1s;}
 
 .main {  max-width: 700px; margin: auto; padding-top: 90px; transition: all 1s;}
@@ -48,9 +49,10 @@ a:hover { background-color: $main; color: #fff; }
 }
 
 .admin-body { max-height: 2em; overflow: scroll; }
-#adminNav { li {display: inline-block;} a {padding: 1em;}  }
+#adminNav { li {display: inline-block;} a {padding: 1em;} a:hover { background-color: $main; color: #fff; }  }
 
-td { padding-bottom: 0.8em; padding-top: 0.8em; padding-left: 0.3em; padding-right: 0.3em; border-top: thin solid #ccc; max-width: 500px; }
+td { padding: 0.8em !important; border-top: thin solid #ccc; max-width: 500px; }
 
 pre { background-color: #eee; padding: 1em; }
 
+.slide-img { height: 300px !important; overflow: hidden; }

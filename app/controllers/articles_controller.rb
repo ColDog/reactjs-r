@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Article.all
+    respond_with Article.all.reverse_order
   end
 
   def create
