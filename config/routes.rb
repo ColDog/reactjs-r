@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root      'home#index'
 
   # Json Resources
-  resources :articles, only: [:create, :index, :delete]
-  resources :comments, only: [:create, :index, :delete]
+  resources :articles, only: [:create, :index, :destroy]
+  resources :comments, only: [:create, :index, :destroy]
 
   # Admin Section
   get       'admin'   => 'admin#admin'
