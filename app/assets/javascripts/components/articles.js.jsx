@@ -21,6 +21,7 @@ var Article = React.createClass({
                 <div id="articleContent" className={shown}
                     dangerouslySetInnerHTML={{__html: rawMarkup}}
                 />
+                <h6>Posted: {$.format.prettyDate(this.props.created_at)}</h6>
             </div>
         )
     }
@@ -35,6 +36,7 @@ var ArticleList = React.createClass({
                 id={article.id}
                 title={article.title}
                 body={article.body}
+                created_at={article.created_at}
             />;
         });
 
