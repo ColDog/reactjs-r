@@ -13,15 +13,16 @@ var Article = React.createClass({
         var rawMarkup = marked(this.props.body.toString(), {sanitize: true});
         var shown = this.state.show? 'show' : 'hidden';
         return (
-            <div id="article">
+            <div className="article">
                 <h2 className="articleTitle" onClick={this.handleClick}>
-                {this.props.title}
+                    {this.props.title}
                 </h2>
-
-                <div id="articleContent" className={shown}
-                    dangerouslySetInnerHTML={{__html: rawMarkup}}
-                />
-                <h6>Posted: {$.format.prettyDate(this.props.created_at)}</h6>
+                <div className="articleContent">
+                    <div className={shown}
+                        dangerouslySetInnerHTML={{__html: rawMarkup}}
+                    />
+                    <h6>Posted: {$.format.prettyDate(this.props.created_at)}</h6>
+                </div>
             </div>
         )
     }
