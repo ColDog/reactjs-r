@@ -102,7 +102,7 @@ var AdminArticleBox = React.createClass({
 
     handleArticleSubmit: function (article) {
         var articles = this.state.data;
-        var newArticles = [article].concat(articles);
+        var newArticles = articles.concat([article]);
         this.setState({data: newArticles});
 
         $.ajax({
