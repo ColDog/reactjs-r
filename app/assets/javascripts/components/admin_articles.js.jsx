@@ -63,14 +63,16 @@ var AdminArticleList = React.createClass({
         var onUpdate = this.props.onUpdate;
 
         var articles = this.props.data.map(function(article) {
-            return <AdminArticle
+            return <table>
+            <AdminArticle
                 key={article.title}
                 id={article.id}
                 title={article.title}
                 body={article.body}
                 onDelete={onDelete}
                 onUpdate={onUpdate}
-            />;
+            />
+            </table>;
         });
 
         return (
@@ -158,10 +160,6 @@ var AdminArticleBox = React.createClass({
     },
 
     handleUpdate: function (article) {
-        //var articles = this.state.data;
-        //var newArticles = articles.concat([article]);
-        //this.setState({data: newArticles});
-
         $.ajax({
             url: '/articles/' + article.id,
             dataType: 'json',
@@ -194,13 +192,11 @@ var AdminArticleBox = React.createClass({
                     onArticleSubmit={this.handleArticleSubmit}
                 />
                 <h1>Posts</h1>
-                <table>
                 <AdminArticleList
                     data={this.state.data}
                     onDelete={this.deleteObj}
                     onUpdate={this.handleUpdate}
                 />
-                </table>
             </div>
         )
     }
