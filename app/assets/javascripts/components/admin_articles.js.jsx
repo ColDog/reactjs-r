@@ -2,7 +2,7 @@
 
 var AdminArticle = React.createClass({
     getInitialState: function() {
-        return { show: false };
+        return { show: false, edit: false };
     },
 
     deleteObj: function() {
@@ -11,6 +11,10 @@ var AdminArticle = React.createClass({
 
     handleClick: function(event) {
         this.setState({show: !this.state.show});
+    },
+
+    handleEdit: function(event) {
+        this.setState({edit: !this.state.edit});
     },
 
     handleUpdate: function() {
@@ -23,11 +27,15 @@ var AdminArticle = React.createClass({
 
     render: function() {
         var shown = this.state.show? 'admin-show' : 'admin-hidden';
+        var editable = this.state.edit? 'admin-show' : 'admin-hidden';
         return (
             <tr id="article">
                 <td><h5>{this.props.title}</h5></td>
                 <td>
-                    <div id={this.props.id} contentEditable="true" className={shown}>{this.props.body}</div>
+                    <div className={shown}>{this.props.body}</div>
+                    <div className={editable}>
+                        <textarea id={this.props.id} defaultValue={this.props.body} />
+                    </div>
                 </td>
                 <td>
                     <button className="btn" onClick={this.deleteObj}>
@@ -35,6 +43,9 @@ var AdminArticle = React.createClass({
                     </button>
                     <button className="btn" onClick={this.handleClick}>
                         Show
+                    </button>
+                    <button className="btn" onClick={this.handleEdit}>
+                        Edit
                     </button>
                     <button className="btn" onClick={this.handleUpdate}>
                         Update
