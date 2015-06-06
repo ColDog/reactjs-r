@@ -43,10 +43,12 @@ a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; tex
 }
 .articleContent {  }
 .admin-body { max-height: 2em; overflow: scroll;}
-#adminNav { li {display: inline-block;} a {padding: 1em;} a:hover { background-color: $main; color: #fff; } }
-.admin-back { background-color: #ffffff; position: absolute; top: 0; width: 100%; }
+#adminNav { height: 50px; width: 100%; position: absolute; top: 0;
+  li {display: inline-block;} a {padding: 1em;} a:hover { background-color: $main; color: #fff; }
+}
+
 table { background-color: white !important; width: 100%; }
 td { padding: 0.8em !important; border-top: thin solid #ccc; max-width: 500px; background-color: white !important;  }
 pre { background-color: #eee; padding: 1em; }
 .slide-img { height: 300px !important; overflow: hidden; }
-#article{ textarea { margin-top: 20px; } }
+#article{ textarea { margin-top: 20px; width: 100%; height: 200px; } }
