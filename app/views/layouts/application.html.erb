@@ -8,7 +8,6 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
 </head>
 <body>
-<div class="admin-back">
 <% if logged_in? %>
 	<ul id="adminNav">
 		<li><%= link_to 'Home', root_path %></li>
@@ -22,7 +21,7 @@
 		<li><%= link_to 'Login', login_path %></li>
 	</ul>
 <% end %>
-</div>
+
 <%= yield %>
 
 </body>

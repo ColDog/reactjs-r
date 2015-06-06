@@ -10,13 +10,17 @@ class ArticlesController < ApplicationController
     respond_with Article.create!(article_params)
   end
 
+  def update
+    respond_with Article.find(params[:id]).update!(article_params)
+  end
+
   def destroy
     respond_with Article.find(params[:id]).destroy
   end
 
   private
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:id, :title, :body)
   end
 
 end

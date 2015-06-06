@@ -1,20 +1,54 @@
 /** @jsx React.DOM */
 
 var AdminArticle = React.createClass({
+    getInitialState: function() {
+        return { show: false, edit: false };
+    },
+
     deleteObj: function() {
         this.props.onDelete(this.props.id);
     },
 
+    handleClick: function(event) {
+        this.setState({show: !this.state.show});
+    },
+
+    handleEdit: function(event) {
+        this.setState({edit: !this.state.edit});
+    },
+
+    handleUpdate: function() {
+        this.props.onUpdate({
+            id: this.props.id,
+            title: this.props.title,
+            body: $('#' + this.props.id).val()
+        })
+    },
+
     render: function() {
+        var shown = this.state.show? 'admin-show' : 'admin-hidden';
+        var editable = this.state.edit? 'admin-show' : 'admin-hidden';
         return (
             <tr id="article">
                 <td><h5>{this.props.title}</h5></td>
-                <td><div className="admin-body">{this.props.body}</div></td>
                 <td>
-                    <button className="btn"
-                        onClick={this.deleteObj}
-                    >
+                    <div className={shown}>{this.props.body}</div>
+                    <div className={editable}>
+                    <textarea id={this.props.id} defaultValue={this.props.body}></textarea>
+                    </div>
+                </td>
+                <td>
+                    <button className="btn" onClick={this.deleteObj}>
                         Delete
+                    </button>
+                    <button className="btn" onClick={this.handleClick}>
+                        Show
+                    </button>
+                    <button className="btn" onClick={this.handleUpdate}>
+                        Update
+                    </button>
+                    <button className="btn" onClick={this.handleEdit}>
+                        Edit
                     </button>
                 </td>
             </tr>
@@ -26,6 +60,8 @@ var AdminArticleList = React.createClass({
     render: function() {
         var onDelete = this.props.onDelete;
 
+        var onUpdate = this.props.onUpdate;
+
         var articles = this.props.data.map(function(article) {
             return <AdminArticle
                 key={article.title}
@@ -33,6 +69,7 @@ var AdminArticleList = React.createClass({
                 title={article.title}
                 body={article.body}
                 onDelete={onDelete}
+                onUpdate={onUpdate}
             />;
         });
 
@@ -120,6 +157,26 @@ var AdminArticleBox = React.createClass({
         });
     },
 
+    handleUpdate: function (article) {
+        //var articles = this.state.data;
+        //var newArticles = articles.concat([article]);
+        //this.setState({data: newArticles});
+
+        $.ajax({
+            url: '/articles/' + article.id,
+            dataType: 'json',
+            type: 'PATCH',
+            data: {article: {title: article.title, body: article.body}},
+            success: function (data) {
+                // set the content equal to the new data
+                this.loadArticlesFromServer();
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
 
     getInitialState: function() {
         return {data: []};
@@ -136,11 +193,12 @@ var AdminArticleBox = React.createClass({
                 <ArticleForm
                     onArticleSubmit={this.handleArticleSubmit}
                 />
-                <table>
                 <h1>Posts</h1>
+                <table>
                 <AdminArticleList
                     data={this.state.data}
                     onDelete={this.deleteObj}
+                    onUpdate={this.handleUpdate}
                 />
                 </table>
             </div>

@@ -5,9 +5,7 @@ $color: rgb(72, 72, 72);
 $back: white;
 $main: #F68632;
 $second: #D95C5C;
-
 body { background-color: #e7ebf2 !important; padding-bottom: 200px; padding-top: 50px }
-
 h1 { font-family: $font; font-size: 4em !important; font-weight: 100; text-align: center; color: $color; margin-top: 3em; margin-bottom: 0;  }
 h2 { font-family: $font; font-size: 3em; color: $second; width: auto; font-weight: 100; }
 h3 { font-family: $font; color: $color;  }
@@ -25,38 +23,30 @@ a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; tex
 .comment {
   margin-top: 1em;
 }
-
 .btn { border-radius: 0; background-color: $back; border: thin solid #BBBBBB; outline: none; }
 .btn:hover {background-color: lightgrey; transition: all 1s;}
-
 .main {  max-width: 700px; margin: auto; padding-top: 90px; transition: all 1s;}
-
 .commentBox {margin-top: 100px; background-color: white; margin-bottom: 50px; padding: 1em; border: thin solid #ddd;}
-
 .commentForm { margin-top: 20px; }
-
 .articleForm { margin-top: 100px;
   .title {width: 500px; margin: auto; padding: 5px; display: block;}
   textarea {width: 500px; height: 200px; margin: auto; padding: 6px; display: block; border: thin solid #BBBBBB;}
   .btn {margin: auto; display: block}
 }
-
 .hidden { max-height: 0; overflow: hidden; }
 .show { overflow: auto; }
-
+.admin-show {  }
+.admin-hidden { max-height: 20px; overflow: hidden; }
 .article {
   background-color: white; margin-bottom: 20px; padding: 1em; border: thin solid #ddd;
   h2 {cursor: pointer; margin-bottom: 0; }
 }
 .articleContent {  }
-
 .admin-body { max-height: 2em; overflow: scroll;}
 #adminNav { li {display: inline-block;} a {padding: 1em;} a:hover { background-color: $main; color: #fff; } }
 .admin-back { background-color: #ffffff; position: absolute; top: 0; width: 100%; }
-
-table { background-color: white !important; }
+table { background-color: white !important; width: 100%; }
 td { padding: 0.8em !important; border-top: thin solid #ccc; max-width: 500px; background-color: white !important;  }
-
 pre { background-color: #eee; padding: 1em; }
-
 .slide-img { height: 300px !important; overflow: hidden; }
+#article{ textarea { margin-top: 20px; } }

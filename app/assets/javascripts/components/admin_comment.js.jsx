@@ -47,9 +47,9 @@ var AdminCommentList = React.createClass({
             );
         });
         return (
-            <div className="commentList">
+            <table className="commentList">
             {comments}
-            </div>
+            </table>
         )
     }
 });
@@ -102,12 +102,10 @@ var AdminCommentBox = React.createClass({
         return (
             <div>
                 <h1>Comments</h1>
-                <table className="commentBox">
                     <AdminCommentList
                         data={this.state.data}
                         onDelete={this.deleteObj}
                     />
-                </table>
             </div>
         );
     }
