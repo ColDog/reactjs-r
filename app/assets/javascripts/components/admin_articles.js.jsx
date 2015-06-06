@@ -21,7 +21,7 @@ var AdminArticle = React.createClass({
         this.props.onUpdate({
             id: this.props.id,
             title: this.props.title,
-            body: $('#' + this.props.id).text()
+            body: $('#' + this.props.id).val()
         })
     },
 
@@ -166,7 +166,6 @@ var AdminArticleBox = React.createClass({
             type: 'PATCH',
             data: {article: {title: article.title, body: article.body}},
             success: function (data) {
-                // set the content equal to the new data
                 this.loadArticlesFromServer();
             }.bind(this),
             error: function (xhr, status, err) {
