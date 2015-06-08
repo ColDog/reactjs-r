@@ -17,7 +17,7 @@ var AdminComment = React.createClass({
                 </td>
                 <td>
                     <div className="commentContent">
-                        {this.props.content}
+                        <p>{this.props.content}</p>
                     </div>
                 </td>
                 <td>
