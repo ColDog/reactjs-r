@@ -12,7 +12,7 @@ h3 { font-family: $font; color: $color;  }
 h4 { font-family: $font; color: $color; }
 h6 { font-family: $font; color: $color; margin: 0; padding: 0; }
 h5 { font-family: $font; padding: 0; margin: 0; color: $color; }
-p  { font-family: $font; padding: 0; margin: 0; color: $color; line-height: 2em; font-size: 1.1em; font-weight: 300; }
+p  { font-family: $font; padding: 0; color: $color; line-height: 1.5em; font-size: 1em; font-weight: 300; }
 span {font-family: $font; padding: 0; margin: 0; color: $color; font-weight: 300; }
 td {font-family: $font; padding: 0; margin: 0; color: $color;}
 li {font-family: $font; padding: 0; margin: 0; color: $color;}
@@ -44,7 +44,7 @@ a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; tex
 }
 .articleContent {  }
 .admin-body { max-height: 2em; overflow: scroll;}
-#adminNav { height: 50px; width: 100%; position: absolute; top: 0;
+#adminNav { height: 50px; width: auto; position: absolute; top: 0; left: 0;
   li {display: inline-block;} a {padding: 1em;} a:hover { background-color: $main; color: #fff; }
 }
 
