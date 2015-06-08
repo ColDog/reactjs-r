@@ -10,6 +10,9 @@ var AdminArticle = React.createClass({
     handleEdit: function(event) {
         this.setState({edit: !this.state.edit});
     },
+    textClick: function() {
+        this.setState({edit: true});
+    },
     handleUpdate: function() {
         this.props.onUpdate({
             id: this.props.id,
@@ -27,21 +30,21 @@ var AdminArticle = React.createClass({
         var name = this.state.edit? 'Hide' : 'Show';
         return (
             <tr id="article">
-                <td className="short"><h5>{this.props.title}</h5></td>
+                <td className="short"><h4>{this.props.title}</h4></td>
                 <td className="medium">
                     <div className={editable}>
-                        <textarea id={this.props.id} className="edit" defaultValue={this.props.body} />
+                        <textarea onClick={this.textClick} id={this.props.id} className="edit" defaultValue={this.props.body} />
                     </div>
                 </td>
                 <td className="short">
-                    <button className="btn" onClick={this.deleteObj}>
-                        Delete
-                    </button>
                     <button className="btn" onClick={this.handleEdit}>
                         {name}
                     </button>
                     <button className="btn" onClick={this.handleUpdate} >
                         Update
+                    </button>
+                    <button className="btn" onClick={this.deleteObj}>
+                        Delete
                     </button>
                     <div className={flash} onClick={this.handleHide} >&#x2713; Updated</div>
                 </td>

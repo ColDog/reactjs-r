@@ -11,18 +11,16 @@ var AdminComment = React.createClass({
         return (
             <tr className="comment">
                 <td>
-                    <h5 className="commentAuthor">
-                        {this.props.author}
-                    </h5>
+                    <h5 className="commentAuthor">{this.props.author}</h5>
+                    <h6>From Article: {this.props.article.title}</h6>
                 </td>
                 <td>
                     <div className="commentContent">
-                        <p>{this.props.content}</p>
+                        <small>{this.props.content}</small>
                     </div>
                 </td>
                 <td>
-                    <button className="btn"
-                    onClick={this.deleteObj}>
+                    <button className="btn" onClick={this.deleteObj}>
                         Delete
                     </button>
                 </td>
@@ -38,9 +36,10 @@ var AdminCommentList = React.createClass({
         var comments = this.props.data.map(function (comment) {
             return (
                 <AdminComment
-                    key={comment.author}
+                    key={comment.id}
                     id={comment.id}
                     author={comment.author}
+                    article={comment.article}
                     content={comment.content}
                     onDelete={onDelete}
                 />
