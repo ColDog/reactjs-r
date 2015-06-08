@@ -19,11 +19,13 @@ var AdminArticle = React.createClass({
             title: this.props.title,
             body: $('#' + this.props.id).val()
         });
-        this.setState({flash: true})
+        this.setState({flash: true});
     },
     handleHide: function() {
         this.setState({flash: false})
     },
+
+
     render: function() {
         var editable = this.state.edit? 'admin-show' : 'admin-hidden';
         var flash = this.state.flash? 'show flash' : 'hide flash';
@@ -63,7 +65,7 @@ var AdminArticleList = React.createClass({
         var articles = this.props.data.map(function(article) {
             return <table>
             <AdminArticle
-                key={article.title}
+                key={article.id}
                 id={article.id}
                 title={article.title}
                 body={article.body}
@@ -152,7 +154,7 @@ var AdminArticleBox = React.createClass({
 
     handleArticleSubmit: function (article) {
         var articles = this.state.data;
-        var newArticles = articles.concat([article]);
+        var newArticles = [article].concat(articles);
         this.setState({data: newArticles});
         $.ajax({
             url: this.props.url,
@@ -160,15 +162,12 @@ var AdminArticleBox = React.createClass({
             type: 'POST',
             data: {article: article},
             success: function (data) {
-                this.setState({data: data});
-                this.loadArticlesFromServer();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
     },
-
     handleUpdate: function (article) {
         $.ajax({
             url: '/articles/' + article.id,

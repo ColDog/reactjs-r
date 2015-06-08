@@ -9,7 +9,7 @@ var CommentForm = React.createClass({
         if (!content || !author) {
             return;
         }
-        this.props.onCommentSubmit({author: author, content: content, article_id: article });
+        this.props.onCommentSubmit({author: author, content: content, article_id: article});
         React.findDOMNode(this.refs.author).value = '';
         React.findDOMNode(this.refs.content).value = '';
         return;
@@ -29,6 +29,7 @@ var CommentForm = React.createClass({
 var Comment = React.createClass({
 
     render: function() {
+        var created_at = typeof this.props.created_at === 'undefined'? 'just now' : $.format.prettyDate(this.props.created_at);
         return (
             <div className="comment">
                 <h5 className="commentAuthor">
@@ -37,7 +38,7 @@ var Comment = React.createClass({
                 <div className="commentContent">
                     <span>{this.props.content}</span>
                 </div>
-                <h6>{$.format.prettyDate(this.props.created_at)}</h6>
+                <h6>{created_at}</h6>
             </div>
         );
     }
@@ -49,7 +50,7 @@ var CommentList = React.createClass({
         var comments = this.props.data.map(function (comment) {
             return (
                 <Comment
-                    key={comment.author}
+                    key={comment.id}
                     id={comment.id}
                     author={comment.author}
                     content={comment.content}
@@ -59,7 +60,7 @@ var CommentList = React.createClass({
         });
         return (
             <div className="commentList">
-            {comments}
+                {comments}
             </div>
         )
     }
@@ -70,7 +71,7 @@ CommentBox = React.createClass({
 
     handleCommentSubmit: function (comment) {
         var comments = this.state.data;
-        var newComments = [comment].concat(comments);
+        var newComments = comments.concat(comment);
         this.setState({data: newComments});
 
         $.ajax({
@@ -79,8 +80,6 @@ CommentBox = React.createClass({
             type: 'POST',
             data: {comment: comment},
             success: function (data) {
-                this.setState({data: data});
-                this.loadCommentsFromServer();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());

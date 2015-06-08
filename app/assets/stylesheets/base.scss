@@ -57,7 +57,7 @@ pre { background-color: #eee; padding: 1em; }
 #article{
   textarea { width: 100%; min-height: 400px; height: auto; border: none; font-family: $font; padding: 0; margin: 0; color: $color; line-height: 1.2em; font-size: 1em; font-weight: 300;  }
 }
-.flash { cursor: pointer; padding: 2px; width: 60px; margin: 5px; background-color: #cfffac; font-size: 0.7em !important; border: thin solid; border-color: #79ca7c !important; transition: all 0.5s; }
+.flash { padding: 2px; width: 60px; margin: 5px; background-color: #cfffac; font-size: 0.7em !important; border: thin solid; border-color: #79ca7c !important; transition: all 0.5s; }
 .show { opacity: 1; }
 .hide { opacity: 0 }
 

@@ -60,9 +60,7 @@ var AdminCommentBox = React.createClass({
         var newComments = comments.filter(function(elem) {
             return elem.id = data_id;
         });
-
         this.setState({data: newComments});
-
         $.ajax({
             datatype: 'json',
             type: 'DELETE',
