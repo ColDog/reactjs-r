@@ -13,7 +13,7 @@ var Article = React.createClass({
         var rawMarkup = marked(this.props.body.toString(), {sanitize: true});
         var shown = this.state.show? 'show articleContent' : 'hidden articleContent';
         return (
-            <div className="article">
+            <div id={this.props.title.replace(/ /g,'')} className="article">
                 <h2 className="articleTitle" onClick={this.handleClick}>
                     {this.props.title}
                 </h2>
