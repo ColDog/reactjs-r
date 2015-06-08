@@ -43,9 +43,6 @@ var AdminArticle = React.createClass({
                             <button className="btn" onClick={this.fullScreen} >
                                 Full Screen
                             </button>
-                            <button className="btn" onClick={this.handleUpdate} >
-                                Update
-                            </button>
                         </div>
                     </div>
                 </td>
