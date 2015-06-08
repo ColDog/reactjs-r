@@ -2,13 +2,16 @@
 
 var AdminArticle = React.createClass({
     getInitialState: function() {
-        return { edit: false, flash: false };
+        return { edit: false, flash: false, full: false };
     },
     deleteObj: function() {
         this.props.onDelete(this.props.id);
     },
     handleEdit: function(event) {
         this.setState({edit: !this.state.edit});
+    },
+    fullScreen: function(event) {
+        this.setState({full: !this.state.full});
     },
     textClick: function() {
         this.setState({edit: true});
@@ -25,17 +28,25 @@ var AdminArticle = React.createClass({
         this.setState({flash: false})
     },
 
-
     render: function() {
         var editable = this.state.edit? 'admin-show' : 'admin-hidden';
         var flash = this.state.flash? 'show flash' : 'hide flash';
         var name = this.state.edit? 'Hide' : 'Show';
+        var fullScreen = this.state.full? 'full edit' : 'edit';
         return (
             <tr id="article">
                 <td className="short"><h4>{this.props.title}</h4></td>
                 <td className="medium">
                     <div className={editable}>
-                        <textarea onClick={this.textClick} id={this.props.id} className="edit" defaultValue={this.props.body} />
+                        <div className={fullScreen}>
+                            <textarea onClick={this.textClick} id={this.props.id} defaultValue={this.props.body} />
+                            <button className="btn" onClick={this.fullScreen} >
+                                Full Screen
+                            </button>
+                            <button className="btn" onClick={this.handleUpdate} >
+                                Update
+                            </button>
+                        </div>
                     </div>
                 </td>
                 <td className="short">
