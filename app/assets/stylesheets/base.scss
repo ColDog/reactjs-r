@@ -25,18 +25,19 @@ a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; tex
 }
 .btn { border-radius: 0; background-color: $back; border: thin solid #BBBBBB; outline: none; }
 .btn:hover {background-color: lightgrey; transition: all 1s;}
-.main {  max-width: 700px; margin: auto; padding-top: 90px; transition: all 1s;}
+.main {  max-width: 900px; margin: auto; padding-top: 90px; transition: all 1s;}
 .commentBox {margin-top: 100px; background-color: white; margin-bottom: 50px; padding: 1em; border: thin solid #ddd;}
 .commentForm { margin-top: 20px; }
-.articleForm { margin-top: 100px;
+.articleForm {
   .title {width: 500px; margin: auto; padding: 5px; display: block;}
-  textarea {width: 500px; height: 200px; margin: auto; padding: 6px; display: block; border: thin solid #BBBBBB;}
+  textarea {width: 500px; height: 200px; margin: auto; padding: 6px; display: block; border: thin solid #BBBBBB; font-family: $font; color: $color; line-height: 1em; font-size: 1em; font-weight: 300; }
+  input { font-family: $font; padding: 0; margin: auto; color: $color; line-height: 1em; font-size: 1em; font-weight: 300;  }
   .btn {margin: auto; display: block}
 }
 .hidden { max-height: 0; overflow: hidden; }
 .show { overflow: auto; }
 .admin-show {  }
-.admin-hidden { max-height: 20px; overflow: hidden; }
+.admin-hidden { max-height: 50px; overflow: hidden; }
 .article {
   background-color: white; margin-bottom: 20px; padding: 1em; border: thin solid #ddd;
   h2 {cursor: pointer; margin-bottom: 0; }
@@ -48,7 +49,20 @@ a {font-family: $font !important; padding: 0; margin: 0; transition: all 1s; tex
 }
 
 table { background-color: white !important; width: 100%; }
-td { padding: 0.8em !important; border-top: thin solid #ccc; max-width: 500px; background-color: white !important;  }
+.short { width: 25% }
+.medium { width: 50% }
+td { padding: 0.8em !important; max-width: 500px; background-color: white !important;  }
 pre { background-color: #eee; padding: 1em; }
 .slide-img { height: 300px !important; overflow: hidden; }
-#article{ textarea { margin-top: 20px; width: 100%; height: 200px; } }
+#article{
+  textarea { width: 100%; min-height: 200px; height: auto; border: none; font-family: $font; padding: 0; margin: 0; color: $color; line-height: 1em; font-size: 1em; font-weight: 300;  }
+}
+.flash { cursor: pointer; padding: 2px; width: 60px; margin: 5px; background-color: #cfffac; font-size: 0.7em !important; border: thin solid; border-color: #79ca7c !important; transition: all 0.5s; }
+.show { opacity: 1; }
+.hide { opacity: 0 }
+
+.show-form { max-height: 500px; background-color: #ffffff; }
+.hide-form { max-height: 0;  overflow: hidden; }
+.new-form { transition: all 0.5s; }
+.new-post { position: fixed; bottom: 0; left: 0; width: 100%; }
+.big { font-size: 2em; border: none; }

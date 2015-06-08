@@ -8,6 +8,9 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
 </head>
 <body>
+
+<%= react_component('FlashContainer') %>
+
 <% if logged_in? %>
 	<ul id="adminNav">
 		<li><%= link_to 'Home', root_path %></li>

@@ -2,59 +2,54 @@
 
 var AdminArticle = React.createClass({
     getInitialState: function() {
-        return { show: false, edit: false };
+        return { edit: false, flash: false };
     },
-
     deleteObj: function() {
         this.props.onDelete(this.props.id);
     },
-
-    handleClick: function(event) {
-        this.setState({show: !this.state.show});
-    },
-
     handleEdit: function(event) {
         this.setState({edit: !this.state.edit});
     },
-
     handleUpdate: function() {
         this.props.onUpdate({
             id: this.props.id,
             title: this.props.title,
             body: $('#' + this.props.id).val()
-        })
+        });
+        this.setState({flash: true})
     },
-
+    handleHide: function() {
+        this.setState({flash: false})
+    },
     render: function() {
-        var shown = this.state.show? 'admin-show' : 'admin-hidden';
         var editable = this.state.edit? 'admin-show' : 'admin-hidden';
+        var flash = this.state.flash? 'show flash' : 'hide flash';
+        var name = this.state.edit? 'Hide' : 'Show';
         return (
             <tr id="article">
-                <td><h5>{this.props.title}</h5></td>
-                <td>
-                    <div className={shown}>{this.props.body}</div>
+                <td className="short"><h5>{this.props.title}</h5></td>
+                <td className="medium">
                     <div className={editable}>
-                        <textarea id={this.props.id} defaultValue={this.props.body} />
+                        <textarea id={this.props.id} className="edit" defaultValue={this.props.body} />
                     </div>
                 </td>
-                <td>
+                <td className="short">
                     <button className="btn" onClick={this.deleteObj}>
                         Delete
                     </button>
-                    <button className="btn" onClick={this.handleClick}>
-                        Show
-                    </button>
                     <button className="btn" onClick={this.handleEdit}>
-                        Edit
+                        {name}
                     </button>
-                    <button className="btn" onClick={this.handleUpdate}>
+                    <button className="btn" onClick={this.handleUpdate} >
                         Update
                     </button>
+                    <div className={flash} onClick={this.handleHide} >&#x2713; Updated</div>
                 </td>
             </tr>
         )
     }
 });
+
 
 var AdminArticleList = React.createClass({
     render: function() {
@@ -84,6 +79,9 @@ var AdminArticleList = React.createClass({
 });
 
 var ArticleForm = React.createClass({
+    getInitialState: function() {
+        return { show: false };
+    },
     handleSubmit: function(e) {
         e.preventDefault();
         var title = React.findDOMNode(this.refs.title).value.trim();
@@ -96,16 +94,28 @@ var ArticleForm = React.createClass({
         React.findDOMNode(this.refs.body).value = '';
         return;
     },
+    handleShow: function() {
+        this.setState({show: !this.state.show})
+    },
     render: function() {
+        var show = this.state.show? 'show-form new-form' : 'hide-form new-form';
         return (
-            <form className="articleForm" onSubmit={this.handleSubmit}>
-                <input className="title" type="text" placeholder="Title" ref="title" />
-                <textarea type="text" placeholder="Say something..." ref="body" />
-                <input className="btn" type="submit" value="Post" />
-            </form>
+            <div className="new-post">
+                <button className="btn big" onClick={this.handleShow}>New Post</button>
+                <div className={show}>
+                <br />
+                <form className="articleForm" onSubmit={this.handleSubmit}>
+                    <input className="title" type="text" placeholder="Title" ref="title" />
+                    <textarea type="text" placeholder="Say something..." ref="body" />
+                    <input className="btn" type="submit" value="Post" />
+                </form>
+                <br />
+                </div>
+            </div>
         );
     }
 });
+
 
 var AdminArticleBox = React.createClass({
 
@@ -114,9 +124,7 @@ var AdminArticleBox = React.createClass({
         var newArticles = articles.filter(function(elem) {
             return elem.id = data_id;
         });
-
         this.setState({data: newArticles});
-
         $.ajax({
             datatype: 'json',
             type: 'DELETE',
@@ -143,7 +151,6 @@ var AdminArticleBox = React.createClass({
         var articles = this.state.data;
         var newArticles = articles.concat([article]);
         this.setState({data: newArticles});
-
         $.ajax({
             url: this.props.url,
             dataType: 'json',
@@ -173,20 +180,15 @@ var AdminArticleBox = React.createClass({
             }.bind(this)
         });
     },
-
-
     getInitialState: function() {
         return {data: []};
     },
-
     componentDidMount: function() {
         this.loadArticlesFromServer();
     },
-
     render: function() {
         return (
             <div className="articleBox">
-                <h1>New Post</h1>
                 <ArticleForm
                     onArticleSubmit={this.handleArticleSubmit}
                 />
