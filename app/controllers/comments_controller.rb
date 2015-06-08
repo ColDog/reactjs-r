@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Comment.all.includes(:article).reverse_order.to_json(include: [:article])
+    respond_with Comment.all.includes(:article).to_json(include: [:article])
   end
 
   def create

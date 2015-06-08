@@ -37,6 +37,7 @@ var Comment = React.createClass({
                 <div className="commentContent">
                     <span>{this.props.content}</span>
                 </div>
+                <h6>{$.format.prettyDate(this.props.created_at)}</h6>
             </div>
         );
     }
@@ -52,6 +53,7 @@ var CommentList = React.createClass({
                     id={comment.id}
                     author={comment.author}
                     content={comment.content}
+                    created_at={comment.created_at}
                 />
             );
         });
