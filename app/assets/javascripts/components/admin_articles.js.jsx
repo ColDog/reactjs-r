@@ -56,7 +56,7 @@ var AdminArticle = React.createClass({
                     <button className="btn" onClick={this.deleteObj}>
                         Delete
                     </button>
-                    <div className={flash} onClick={this.handleHide} >&#x2713; Updated</div>
+                    <div className={flash} onClick={this.handleHide} >&#x2713; Updated &nbsp; &#215;</div>
                 </td>
             </tr>
         )
